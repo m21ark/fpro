@@ -18,6 +18,9 @@ O objetivo é desviar dos obstáculos e aguentar o máximo de tempo possível. O
 ### Pacotes
 
 - Pygame
+- Tkinter
+- PyQT5
+
 
 ### Tarefas
 
