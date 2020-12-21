@@ -27,7 +27,7 @@ O objetivo é desviar dos obstáculos e aguentar o máximo de tempo possível. O
 1. [x] desenhar e controlar o jogador: salto e gravidade
 2. [x] gerar nível aleatório com obstáculos
 3. [x] colisão de obstáculos
-4. [ ]Adição de Skins
+4. [ ] Adição de novas Skins 
 5. [ ] Adição de ficheiro que guarda informações
 6. [ ] modo dois jogadores co-op
 
