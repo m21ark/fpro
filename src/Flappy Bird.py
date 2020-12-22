@@ -1,22 +1,21 @@
-import pygame
+import os,sys,pygame
 from pygame.locals import *
-from random import randint
 from random import randint as rand
-import os
-import sys
 from win32api import GetSystemMetrics
-
 
 def fps(x):pygame.time.Clock().tick(x)
 
 def getdir(f_name):return os.path.join(os.path.dirname(__file__), f_name)
+
+#icon jogo
+pygame.display.set_icon(pygame.image.load(getdir('icon.png')))
     
 #Make window centered
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
-#icon jogo
-pygame.display.set_icon(pygame.image.load(getdir('icon.png')))
-
+#Recebe recorde guardado
+with open(getdir("record.txt"),"r") as f:RECORD = int(f.read())
+	
 def main():
 	#Constantes
 	SCREEN_WIDTH = GetSystemMetrics(0)
@@ -53,7 +52,7 @@ def main():
 
 	#Loop Principal
 	while 1:
-		fps(30)
+		fps(40)
 		win.blit(sky,(0,0))
 
 		#Gravidade
@@ -66,7 +65,7 @@ def main():
 				sys.exit()
 			if event.type==KEYDOWN:
 				if event.key== K_SPACE:
-					birdy -=42
+					birdy -=51
 
 		#Deteta se bird no chão ou fora da janela
 		if birdy>=620:break
@@ -113,5 +112,9 @@ def main():
 		win.blit(text_surface,(WIN_WIDTH/2-10,10))
 
 		pygame.display.update()
+
+		#Guarda novo recorde se maior q anterior
+		if score>RECORD:
+			with open(getdir("record.txt"),"w") as f:record = f.write(str(score))
 
 main()
