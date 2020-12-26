@@ -18,7 +18,6 @@ O objetivo é desviar dos obstáculos e aguentar o máximo de tempo possível. O
 ### Pacotes
 
 - Pygame
-- Tkinter
 - PyQT5
 
 
@@ -29,7 +28,10 @@ O objetivo é desviar dos obstáculos e aguentar o máximo de tempo possível. O
 3. [x] colisão de obstáculos
 4. [x] Adição de novas Skins 
 5. [x] Adição de ficheiro que guarda informações
-6. [ ] Adicionar moedas coletaveis
-7. [ ] Adicionar loja de compra de skins
-8. [ ] modo dois jogadores co-op
+6. [x] Adicionar moedas coletaveis
+7. [x] Adicionar efeitos sonoros e ficheiros extra
+8. [x] Adicionar janela inicial e janela "game over"
+9. [ ] Adicionar loja de compra de skins
+10. [ ] modo dois jogadores co-op
 
+Ps: Em futura versão todos os ficheiros serão reorganizados.
