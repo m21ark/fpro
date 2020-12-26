@@ -45,13 +45,14 @@ def game():
 
 	#Load de skins
 	pygame.init()
-	bird_skin=pygame.transform.scale(pygame.image.load(getdir('bird.png')),(65,60))	
-	pipe_b_skin = pygame.transform.scale(pygame.image.load(getdir('pipe.png')),(PIPE_WIDTH,PIPE_HEIGHT))
+	bird_skin=pygame.transform.scale(pygame.image.load(getdir('bird5.png')),(65,60))	
+	pipe_b_skin = pygame.transform.scale(pygame.image.load(getdir('pipe5.png')),(PIPE_WIDTH,PIPE_HEIGHT))
 	sky=pygame.image.load(getdir('sky.png'))
 	coin=pygame.transform.scale(pygame.image.load(getdir('coin.png')),(40,45))
 	win=pygame.display.set_mode((WIN_WIDTH,WIN_HEIGHT))
 	pygame.display.set_caption('Flappy Bird')
 	sky=pygame.transform.scale(sky,(WIN_WIDTH,WIN_HEIGHT))
+	floor_skin = pygame.image.load(getdir('floor.png'))
 
 	POINT_SOUND = pygame.mixer.Sound(getdir("point.wav"))
 	DIE_SOUND = pygame.mixer.Sound(getdir("die.wav"))
@@ -67,7 +68,6 @@ def game():
 	score = 0
 	birdx,birdy=(100,200)
 	floor_pos=(0,WIN_WIDTH)
-	floor_skin = pygame.image.load(getdir('floor.png'))
 	floor_x1,floor_x2,floor_width = 20,-WIN_WIDTH,floor_skin.get_width()
 
 
@@ -106,8 +106,18 @@ def game():
 			win.blit(text_surface3,(WIN_WIDTH/2-100,400))
 			font=pygame.font.SysFont('Arial', 30)
 			win.blit(text_surface4,(WIN_WIDTH/2-230,500))
+			font=pygame.font.SysFont('Arial', 50)
+			text_surface1= font.render(f'Highscore:{RECORD}', False, (255,255,255))
+			text_surface2= font.render(f'Score:{score}', False, (255,255,255))
+			text_surface3= font.render(f'Coins:{COIN_VAULT}', False, (255,255,255))
+			text_surface4= font.render(f'Press "ENTER" to restart!', False, (255,255,255))
+			win.blit(text_surface1,(WIN_WIDTH/2-105,300))
+			win.blit(text_surface2,(WIN_WIDTH/2-105,350))
+			win.blit(text_surface3,(WIN_WIDTH/2-105,400))
+			font=pygame.font.SysFont('Arial', 30)
+			win.blit(text_surface4,(WIN_WIDTH/2-235,500))
 
-			sleep(1)
+
 			#Catch Key Press
 			for event in pygame.event.get():
 				if event.type==QUIT:
@@ -119,17 +129,12 @@ def game():
 
 			pygame.display.update()
 
-
-
-
-
 	# Main Game Loop
 	jumped =False
 	hyper_jumped = False
 	glided = 0
 	grav = 16
 	grav_count = 0
-
 
 	
 	while RUN:
@@ -155,7 +160,7 @@ def game():
 			continue
 
 
-		fps(60)
+		fps(30)
 
 		#HARD INCRESED BY MOVE AND GRAV
 		MOVE_count +=1
@@ -276,6 +281,8 @@ def game():
 		font=pygame.font.SysFont('Arial', 50)
 		text_surface= font.render(f'H:{RECORD},S:{score},C:{COIN_VAULT}', False, (255,255,255))
 		win.blit(text_surface,(WIN_WIDTH/2-120,10))
+		text_surface= font.render(f'H:{RECORD},S:{score},C:{COIN_VAULT}', False, (0,0,0))
+		win.blit(text_surface,(WIN_WIDTH/2-124,10))
 		if RECORD<score:
 			RECORD = score
 				
