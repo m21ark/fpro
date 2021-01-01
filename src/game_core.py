@@ -1,8 +1,7 @@
 import pygame,os,sys
 from pygame.locals import *
 from random import randint as rand
-from win32api import GetSystemMetrics
-from time import sleep
+from random import choice
 
 def game():
 
@@ -10,25 +9,23 @@ def game():
 	def getdir(f_name):return os.path.join(os.path.dirname(__file__), f_name)
 
 	#icon jogo
-	pygame.display.set_icon(pygame.image.load(getdir('icon.ico')))
+	pygame.display.set_icon(pygame.image.load(getdir('Assets\\icon.ico')))
 	    
 	#Make window centered
 	os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 	#Recebe recorde guardado
-	with open(getdir("stored_info.txt"),"r") as f:
+	with open(getdir("Assets\\stored_info.txt"),"r") as f:
 		stored_info = f.read().split(",")
 		RECORD = int(stored_info[0])
 		COIN_VAULT = int(stored_info[1])
 
 	#Constantes
-	SCREEN_WIDTH = GetSystemMetrics(0)
-	SCREEN_HEIGHT = GetSystemMetrics(1)
+	SCREEN_HEIGHT =  pygame.display.Info().current_h
 	WIN_WIDTH=int(SCREEN_HEIGHT*0.6)
 	WIN_HEIGHT=int(SCREEN_HEIGHT*0.8)
 	PIPE_WIDTH=120
 	PIPE_HEIGHT=500
-	SPACER = 1000 #espaco entre moedas consecutivas
 	GAP=660
 	MOVE= 15
 	RUN = True
@@ -42,24 +39,41 @@ def game():
 	MOVE_count = 0
 	hyper_jump = 3
 
+	#Skin info load
+	with open(getdir("Assets\\skin_info.txt"),"r") as f:
+		skins_list = f.read().split(",")
+
+	bird_skins = skins_list[:skins_list.index("Xbird0")+1]
+	pipe_skins = skins_list[skins_list.index("Xbird0")+1:skins_list.index("Xpipe0")+1]
+	sky_skins = skins_list[skins_list.index("Xpipe0")+1:]
+
+	bird_skins_have = list(map(lambda x: x.strip("X"),list(filter(lambda x:  "X" in x,bird_skins))))
+	pipe_skins_have = list(map(lambda x: x.strip("X"),list(filter(lambda x:   "X" in x,pipe_skins))))
+	sky_skins_have = list(map(lambda x: x.strip("X"),list(filter(lambda x:   "X" in x,sky_skins))))
+
+	#Inicio de pygame
+	pygame.init()
+
 
 	#Load de skins
-	pygame.init()
-	bird_skin=pygame.transform.scale(pygame.image.load(getdir('bird5.png')),(65,60))	
-	pipe_b_skin = pygame.transform.scale(pygame.image.load(getdir('pipe5.png')),(PIPE_WIDTH,PIPE_HEIGHT))
-	sky=pygame.image.load(getdir('sky.png'))
-	coin=pygame.transform.scale(pygame.image.load(getdir('coin.png')),(40,45))
+	bird_skin=pygame.transform.scale(pygame.image.load(getdir(f'Assets\\{choice(bird_skins_have)}.png')),(65,60))	
+	pipe_b_skin = pygame.transform.scale(pygame.image.load(getdir(f'Assets\\{choice(pipe_skins_have)}.png')),(PIPE_WIDTH,PIPE_HEIGHT))
+	sky=pygame.image.load(getdir(f'Assets\\{choice(sky_skins_have)}.png'))
+
+	#Load de outras informações
+	coin=pygame.transform.scale(pygame.image.load(getdir('Assets\\coin.png')),(40,45))
+	coin_icon=pygame.transform.scale(pygame.image.load(getdir('Assets\\coin.png')),(30,30))
 	win=pygame.display.set_mode((WIN_WIDTH,WIN_HEIGHT))
 	pygame.display.set_caption('Flappy Bird')
 	sky=pygame.transform.scale(sky,(WIN_WIDTH,WIN_HEIGHT))
-	floor_skin = pygame.image.load(getdir('floor.png'))
+	floor_skin = pygame.image.load(getdir('Assets\\floor.png'))
 
-	POINT_SOUND = pygame.mixer.Sound(getdir("point.wav"))
-	DIE_SOUND = pygame.mixer.Sound(getdir("die.wav"))
+	POINT_SOUND = pygame.mixer.Sound(getdir("Assets\\point.wav"))
+	DIE_SOUND = pygame.mixer.Sound(getdir("Assets\\die.wav"))
 
 	#Variáveis principais
 	pipex = WIN_WIDTH+300
-	coinx,coiny = (SPACER,int(rand(50,500)))
+	coinx,coiny = (2*WIN_WIDTH+300,int(rand(50,500)))
 	pipey_t =-rand(110,450)
 	pipey_b=pipey_t +GAP
 	pipe_t_collision=pipey_t +PIPE_HEIGHT
@@ -68,7 +82,7 @@ def game():
 	score = 0
 	birdx,birdy=(100,200)
 	floor_pos=(0,WIN_WIDTH)
-	floor_x1,floor_x2,floor_width = 20,-WIN_WIDTH,floor_skin.get_width()
+	floor_x1,floor_x2,floor_width = 20,-WIN_WIDTH+27,floor_skin.get_width()
 
 
 	def death(birdy):
@@ -85,37 +99,37 @@ def game():
 
 
 		if score>RECORD:
-			with open(getdir("stored_info.txt"),"w") as f:
+			with open(getdir("Assets\\stored_info.txt"),"w") as f:
 				record = f.write(str(",".join([str(i) for i in [score,COIN_VAULT]])))
 		else:
-			with open(getdir("stored_info.txt"),"w") as f:
+			with open(getdir("Assets\\stored_info.txt"),"w") as f:
 				record = f.write(str(",".join([str(i) for i in [RECORD,COIN_VAULT]])))
 
 		while 1:
 			fps(20)
 			win.blit(sky,(0,0))
-			win.blit(pygame.image.load(getdir('gameover.png')),(WIN_WIDTH/2-160,150))
+			win.blit(pygame.image.load(getdir('Assets\\gameover.png')),(WIN_WIDTH/2-160,150))
 			pygame.font.init()
-			font=pygame.font.SysFont('Arial', 50)
-			text_surface1= font.render(f'Highscore:{RECORD}', False, (0,0,0))
-			text_surface2= font.render(f'Score:{score}', False, (0,0,0))
-			text_surface3= font.render(f'Coins:{COIN_VAULT}', False, (0,0,0))
-			text_surface4= font.render(f'Press "ENTER" to restart!', False, (0,0,0))
-			win.blit(text_surface1,(WIN_WIDTH/2-100,300))
-			win.blit(text_surface2,(WIN_WIDTH/2-100,350))
-			win.blit(text_surface3,(WIN_WIDTH/2-100,400))
-			font=pygame.font.SysFont('Arial', 30)
-			win.blit(text_surface4,(WIN_WIDTH/2-230,500))
 			font=pygame.font.SysFont('Arial', 50)
 			text_surface1= font.render(f'Highscore:{RECORD}', False, (255,255,255))
 			text_surface2= font.render(f'Score:{score}', False, (255,255,255))
 			text_surface3= font.render(f'Coins:{COIN_VAULT}', False, (255,255,255))
 			text_surface4= font.render(f'Press "ENTER" to restart!', False, (255,255,255))
-			win.blit(text_surface1,(WIN_WIDTH/2-105,300))
-			win.blit(text_surface2,(WIN_WIDTH/2-105,350))
-			win.blit(text_surface3,(WIN_WIDTH/2-105,400))
-			font=pygame.font.SysFont('Arial', 30)
+			win.blit(text_surface1,(WIN_WIDTH/2-100,300))
+			win.blit(text_surface2,(WIN_WIDTH/2-100,350))
+			win.blit(text_surface3,(WIN_WIDTH/2-100,400))
+			font=pygame.font.SysFont('Arial', 25)
 			win.blit(text_surface4,(WIN_WIDTH/2-235,500))
+			font=pygame.font.SysFont('Arial', 50)
+			text_surface1= font.render(f'Highscore:{RECORD}', False, (0,0,0))
+			text_surface2= font.render(f'Score:{score}', False, (0,0,0))
+			text_surface3= font.render(f'Coins:{COIN_VAULT}', False, (0,0,0))
+			text_surface4= font.render(f'Press "ENTER" to restart!', False, (0,0,0))
+			win.blit(text_surface1,(WIN_WIDTH/2-105+2,300+2))
+			win.blit(text_surface2,(WIN_WIDTH/2-105+2,350+2))
+			win.blit(text_surface3,(WIN_WIDTH/2-105+2,400+2))
+			font=pygame.font.SysFont('Arial', 25)
+			win.blit(text_surface4,(WIN_WIDTH/2-235+2,500+2))
 
 
 			#Catch Key Press
@@ -133,7 +147,7 @@ def game():
 	jumped =False
 	hyper_jumped = False
 	glided = 0
-	grav = 16
+	grav = 15
 	grav_count = 0
 
 	
@@ -164,16 +178,16 @@ def game():
 
 		#HARD INCRESED BY MOVE AND GRAV
 		MOVE_count +=1
-		if MOVE<35:
-			if MOVE_count ==130:
-				MOVE +=0.7
+		if MOVE<40:
+			if MOVE_count ==170:
+				MOVE +=0.5
 				MOVE_count = 0
 
 		#Gravidade
 		grav_count +=1
-		if grav<20:
-			if grav_count ==150:
-				grav +=0.6
+		if grav<25:
+			if grav_count ==170:
+				grav +=0.5
 				grav_count = 0
 		birdy+=grav
 
@@ -227,8 +241,8 @@ def game():
 
 		#Coin Controller
 		coinx -=MOVE
-		if coinx<-SPACER:
-			coinx = int(rand(SPACER,2*SPACER))+321
+		if coinx<-1.5*WIN_WIDTH:
+			coinx = 3.5*WIN_WIDTH
 			coiny =int(rand(50,500))
 
 
@@ -241,28 +255,38 @@ def game():
 		#Deteta se bird no chão ou fora da janela ou colide
 		if birdy>=530:
 			DIE_SOUND.play()
-			sleep(1)
 			break
 		if birdy<-60:
 			DIE_SOUND.play()
-			sleep(1)
 			break
 
-		if abs(birdx -pipex)<55:
-			if(birdy<=pipey_t+PIPE_HEIGHT):
-				DIE_SOUND.play()
-				sleep(1)
-				break
-			if(birdy>=pipey_b-55):
-				DIE_SOUND.play()
-				sleep(1)
-				break
+		#deteta colisao
+		def  collide(t, win,bird_skin,pipe_tup):
+			birdx,birdy = t
+			bird_mask = pygame.mask.from_surface(bird_skin)
+			pipe_t_skin,pipe_b_skin,pipex,pipey_b,pipey_t= pipe_tup 
+			
+			top_mask = pygame.mask.from_surface(pipe_t_skin)
+			bottom_mask = pygame.mask.from_surface(pipe_b_skin)
+
+			top_offset = (int(pipex) - int(birdx), int(pipey_t) - round(birdy))
+			bottom_offset = (int(pipex) - int(birdx), int(pipey_b) - round(birdy))
+
+			b_col = bird_mask.overlap(bottom_mask, (bottom_offset))
+			t_col = bird_mask.overlap(top_mask,(top_offset))
+
+			if b_col or t_col:return True
+			return False
+
+		if collide((birdx,birdy), win,bird_skin,(pipe_t_skin,pipe_b_skin,pipex,pipey_b,pipey_t)):
+			DIE_SOUND.play()
+			break
 
 		#deteta apanhar moeda
 		if abs(birdx -coinx)<50:
 			if(abs(coiny-birdy)<40):
 				POINT_SOUND.play()
-				coinx = int(rand(SPACER,2*SPACER))+321
+				coinx = 1.5*WIN_WIDTH
 				coiny =int(rand(50,500))
 				COIN_VAULT +=1
 
@@ -275,14 +299,26 @@ def game():
 		win.blit(bird_skin, (birdx,birdy))
 		win.blit(floor_skin, (floor_x1,580))
 		win.blit(floor_skin, (floor_x2,580))
+		win.blit(coin_icon,(WIN_WIDTH-40,13))
 
 		#Escreve score
 		pygame.font.init()
-		font=pygame.font.SysFont('Arial', 50)
-		text_surface= font.render(f'H:{RECORD},S:{score},C:{COIN_VAULT}', False, (255,255,255))
-		win.blit(text_surface,(WIN_WIDTH/2-120,10))
-		text_surface= font.render(f'H:{RECORD},S:{score},C:{COIN_VAULT}', False, (0,0,0))
-		win.blit(text_surface,(WIN_WIDTH/2-124,10))
+		font=pygame.font.SysFont('Arial', 40)
+		# Highscore
+		text_surface= font.render(f'Higscore:{RECORD}', False, (255,255,255))
+		win.blit(text_surface,(10,0))
+		text_surface= font.render(f'Higscore:{RECORD}', False, (0,0,0))
+		win.blit(text_surface,(10+2,0+2))
+		# Score
+		text_surface= font.render(f'Score:{score}', False, (255,255,255))
+		win.blit(text_surface,(WIN_WIDTH/2-50,0))
+		text_surface= font.render(f'Score:{score}', False, (0,0,0))
+		win.blit(text_surface,(WIN_WIDTH/2-50+2,0+2))
+		# Coins
+		text_surface= font.render(f'{COIN_VAULT}', False, (255,255,255))
+		win.blit(text_surface,(WIN_WIDTH-90,0))
+		text_surface= font.render(f'{COIN_VAULT}', False, (0,0,0))
+		win.blit(text_surface,(WIN_WIDTH-90+2,0+2))
 		if RECORD<score:
 			RECORD = score
 				
@@ -293,4 +329,4 @@ def game():
 	death(birdy)
 
 
-game()
+# game()
