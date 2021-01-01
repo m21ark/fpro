@@ -13,7 +13,7 @@ O objetivo é desviar dos obstáculos e aguentar o máximo de tempo possível. O
 
 ### UI
 
-![UI](src/ui.jpg)
+![UI](src/assets/ui.jpg)
 
 ### Pacotes
 
