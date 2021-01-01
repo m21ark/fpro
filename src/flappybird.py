@@ -18,7 +18,7 @@ def game_GUI():
 			sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
 			MainWindow.setSizePolicy(sizePolicy)
 			icon = QtGui.QIcon()
-			icon.addPixmap(QtGui.QPixmap(getdir(getdir("Assets\\icon.ico"))), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+			icon.addPixmap(QtGui.QPixmap(getdir(getdir("assets\\icon.ico"))), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 			MainWindow.setWindowIcon(icon)
 			self.centralwidget = QtWidgets.QWidget(MainWindow)
 			self.centralwidget.setObjectName("centralwidget")
@@ -72,7 +72,7 @@ def game_GUI():
 			sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
 			self.label.setSizePolicy(sizePolicy)
 			self.label.setText("")
-			self.label.setPixmap(QtGui.QPixmap(getdir("Assets\\sky0.png")))
+			self.label.setPixmap(QtGui.QPixmap(getdir("assets\\sky0.png")))
 			self.label.setScaledContents(True)
 			self.label.setWordWrap(True)
 			self.label.setObjectName("label")
@@ -85,7 +85,7 @@ def game_GUI():
 			self.label_3 = QtWidgets.QLabel(self.gridLayoutWidget_2)
 			self.label_3.setMaximumSize(QtCore.QSize(450, 200))
 			self.label_3.setText("")
-			self.label_3.setPixmap(QtGui.QPixmap(getdir("Assets\\title.png")))
+			self.label_3.setPixmap(QtGui.QPixmap(getdir("assets\\title.png")))
 			self.label_3.setScaledContents(True)
 			self.label_3.setObjectName("label_3")
 			self.gridLayout_2.addWidget(self.label_3, 1, 0, 1, 1)
@@ -127,7 +127,7 @@ def game_GUI():
 			# self.store_button.clicked.connect(lambda: print("Store"))
 
 		def retranslateUi(self, MainWindow):
-			with open(getdir("Assets\\stored_info.txt"),"r") as f:
+			with open(getdir("assets\\stored_info.txt"),"r") as f:
 				stored_info = f.read().split(",")
 				HIGHSCORE = int(stored_info[0])
 
@@ -157,7 +157,7 @@ def game_GUI():
 			sizePolicy.setHeightForWidth(store_window.sizePolicy().hasHeightForWidth())
 			store_window.setSizePolicy(sizePolicy)
 			icon = QtGui.QIcon()
-			icon.addPixmap(QtGui.QPixmap(getdir("Assets\\icon.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+			icon.addPixmap(QtGui.QPixmap(getdir("assets\\icon.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 			store_window.setWindowIcon(icon)
 			self.centralwidget = QtWidgets.QWidget(store_window)
 			self.centralwidget.setObjectName("centralwidget")
@@ -177,7 +177,7 @@ def game_GUI():
 			self.horizontalLayout_7.setObjectName("horizontalLayout_7")
 			self.img1 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img1.setText("")
-			self.img1.setPixmap(QtGui.QPixmap(getdir("Assets/bird1.png")))
+			self.img1.setPixmap(QtGui.QPixmap(getdir("assets/bird1.png")))
 			self.img1.setScaledContents(True)
 			self.img1.setObjectName("img1")
 			self.horizontalLayout_7.addWidget(self.img1)
@@ -185,7 +185,7 @@ def game_GUI():
 			self.horizontalLayout_7.addItem(spacerItem)
 			self.img2 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img2.setText("")
-			self.img2.setPixmap(QtGui.QPixmap(getdir("Assets/bird2.png")))
+			self.img2.setPixmap(QtGui.QPixmap(getdir("assets/bird2.png")))
 			self.img2.setScaledContents(True)
 			self.img2.setObjectName("img2")
 			self.horizontalLayout_7.addWidget(self.img2)
@@ -194,7 +194,7 @@ def game_GUI():
 
 			self.img3 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img3.setText("")
-			self.img3.setPixmap(QtGui.QPixmap(getdir("Assets/bird3.png")))
+			self.img3.setPixmap(QtGui.QPixmap(getdir("assets/bird3.png")))
 			self.img3.setScaledContents(True)
 			self.img3.setObjectName("img3")
 			self.horizontalLayout_7.addWidget(self.img3)
@@ -203,7 +203,7 @@ def game_GUI():
 
 			self.img4 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img4.setText("")
-			self.img4.setPixmap(QtGui.QPixmap(getdir("Assets/bird4.png")))
+			self.img4.setPixmap(QtGui.QPixmap(getdir("assets/bird4.png")))
 			self.img4.setScaledContents(True)
 			self.img4.setObjectName("img4")
 			self.horizontalLayout_7.addWidget(self.img4)
@@ -212,7 +212,7 @@ def game_GUI():
 
 			self.img5 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img5.setText("")
-			self.img5.setPixmap(QtGui.QPixmap(getdir("Assets/bird5.png")))
+			self.img5.setPixmap(QtGui.QPixmap(getdir("assets/bird5.png")))
 			self.img5.setScaledContents(True)
 			self.img5.setObjectName("img5")
 			self.horizontalLayout_7.addWidget(self.img5)
@@ -326,7 +326,7 @@ def game_GUI():
 			self.img6 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img6.setMaximumSize(QtCore.QSize(70, 150))
 			self.img6.setText("")
-			self.img6.setPixmap(QtGui.QPixmap(getdir("Assets/pipe1.png")))
+			self.img6.setPixmap(QtGui.QPixmap(getdir("assets/pipe1.png")))
 			self.img6.setScaledContents(True)
 			self.img6.setObjectName("img6")
 			self.horizontalLayout_9.addWidget(self.img6)
@@ -335,7 +335,7 @@ def game_GUI():
 			self.img7 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img7.setMaximumSize(QtCore.QSize(70, 150))
 			self.img7.setText("")
-			self.img7.setPixmap(QtGui.QPixmap(getdir("Assets/pipe2.png")))
+			self.img7.setPixmap(QtGui.QPixmap(getdir("assets/pipe2.png")))
 			self.img7.setScaledContents(True)
 			self.img7.setObjectName("img7")
 			self.horizontalLayout_9.addWidget(self.img7)
@@ -344,7 +344,7 @@ def game_GUI():
 			self.img8 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img8.setMaximumSize(QtCore.QSize(70, 150))
 			self.img8.setText("")
-			self.img8.setPixmap(QtGui.QPixmap(getdir("Assets/pipe3.png")))
+			self.img8.setPixmap(QtGui.QPixmap(getdir("assets/pipe3.png")))
 			self.img8.setScaledContents(True)
 			self.img8.setObjectName("img8")
 			self.horizontalLayout_9.addWidget(self.img8)
@@ -353,7 +353,7 @@ def game_GUI():
 			self.img9 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img9.setMaximumSize(QtCore.QSize(70, 150))
 			self.img9.setText("")
-			self.img9.setPixmap(QtGui.QPixmap(getdir("Assets/pipe4.png")))
+			self.img9.setPixmap(QtGui.QPixmap(getdir("assets/pipe4.png")))
 			self.img9.setScaledContents(True)
 			self.img9.setObjectName("img9")
 			self.horizontalLayout_9.addWidget(self.img9)
@@ -362,7 +362,7 @@ def game_GUI():
 			self.img10 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img10.setMaximumSize(QtCore.QSize(70, 150))
 			self.img10.setText("")
-			self.img10.setPixmap(QtGui.QPixmap(getdir("Assets/pipe5.png")))
+			self.img10.setPixmap(QtGui.QPixmap(getdir("assets/pipe5.png")))
 			self.img10.setScaledContents(True)
 			self.img10.setObjectName("img10")
 			self.horizontalLayout_9.addWidget(self.img10)
@@ -473,7 +473,7 @@ def game_GUI():
 			self.img11 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img11.setMaximumSize(QtCore.QSize(80, 150))
 			self.img11.setText("")
-			self.img11.setPixmap(QtGui.QPixmap(getdir("Assets/sky2.png")))
+			self.img11.setPixmap(QtGui.QPixmap(getdir("assets/sky2.png")))
 			self.img11.setScaledContents(True)
 			self.img11.setObjectName("img11")
 			self.horizontalLayout_10.addWidget(self.img11)
@@ -482,7 +482,7 @@ def game_GUI():
 			self.img12 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img12.setMaximumSize(QtCore.QSize(80, 150))
 			self.img12.setText("")
-			self.img12.setPixmap(QtGui.QPixmap(getdir("Assets/sky3.png")))
+			self.img12.setPixmap(QtGui.QPixmap(getdir("assets/sky3.png")))
 			self.img12.setScaledContents(True)
 			self.img12.setObjectName("img12")
 			self.horizontalLayout_10.addWidget(self.img12)
@@ -491,7 +491,7 @@ def game_GUI():
 			self.img13 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img13.setMaximumSize(QtCore.QSize(80, 150))
 			self.img13.setText("")
-			self.img13.setPixmap(QtGui.QPixmap(getdir("Assets/sky1.xpm")))
+			self.img13.setPixmap(QtGui.QPixmap(getdir("assets/sky1.xpm")))
 			self.img13.setScaledContents(True)
 			self.img13.setObjectName("img13")
 			self.horizontalLayout_10.addWidget(self.img13)
@@ -500,7 +500,7 @@ def game_GUI():
 			self.img14 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
 			self.img14.setMaximumSize(QtCore.QSize(80, 150))
 			self.img14.setText("")
-			self.img14.setPixmap(QtGui.QPixmap(getdir("Assets/sky4.xpm")))
+			self.img14.setPixmap(QtGui.QPixmap(getdir("assets/sky4.xpm")))
 			self.img14.setScaledContents(True)
 			self.img14.setObjectName("img14")
 			self.horizontalLayout_10.addWidget(self.img14)
@@ -617,7 +617,7 @@ def game_GUI():
 			self.label = QtWidgets.QLabel(self.centralwidget)
 			self.label.setGeometry(QtCore.QRect(0, -10, 1001, 921))
 			self.label.setText("")
-			self.label.setPixmap(QtGui.QPixmap(getdir("Assets\\sky0.png")))
+			self.label.setPixmap(QtGui.QPixmap(getdir("assets\\sky0.png")))
 			self.label.setScaledContents(True)
 			self.label.setObjectName("label")
 			self.Back_Label = QtWidgets.QLabel(self.centralwidget)
@@ -643,12 +643,12 @@ def game_GUI():
 
 
 			def buy(s):
-				with open(getdir("Assets\\stored_info.txt"),"r") as f:
+				with open(getdir("assets\\stored_info.txt"),"r") as f:
 					stored_info = f.read().split(",")
 					HIGHSCORE = int(stored_info[0])
 					COIN_VAULT = int(stored_info[1])
 
-				with open(getdir("Assets\\skin_info.txt"),"r") as f:
+				with open(getdir("assets\\skin_info.txt"),"r") as f:
 					skins_list = f.read().split(",")
 
 				bird_skins = skins_list[:skins_list.index("Xbird0")+1]
@@ -664,9 +664,9 @@ def game_GUI():
 						bird_skins_buy.remove(s)
 						skins_list[skins_list.index(s)]="X" + s
 						COIN_VAULT -=10
-						with open(getdir("Assets\\skin_info.txt"),"w") as f:
+						with open(getdir("assets\\skin_info.txt"),"w") as f:
 							f.write(str(",".join([str(i) for i in skins_list])))
-						with open(getdir("Assets\\stored_info.txt"),"w") as f:
+						with open(getdir("assets\\stored_info.txt"),"w") as f:
 							f.write(str(",".join([str(i) for i in [HIGHSCORE,COIN_VAULT]])))
 
 
@@ -675,9 +675,9 @@ def game_GUI():
 						pipe_skins_buy.remove(s)
 						skins_list[skins_list.index(s)]="X" + s
 						COIN_VAULT -=15
-						with open(getdir("Assets\\skin_info.txt"),"w") as f:
+						with open(getdir("assets\\skin_info.txt"),"w") as f:
 							f.write(str(",".join([str(i) for i in skins_list])))
-						with open(getdir("Assets\\stored_info.txt"),"w") as f:
+						with open(getdir("assets\\stored_info.txt"),"w") as f:
 							f.write(str(",".join([str(i) for i in [HIGHSCORE,COIN_VAULT]])))
 
 
@@ -687,9 +687,9 @@ def game_GUI():
 						sky_skins_buy.remove(s)
 						skins_list[skins_list.index(s)]="X" + s
 						COIN_VAULT -=40
-						with open(getdir("Assets\\skin_info.txt"),"w") as f:
+						with open(getdir("assets\\skin_info.txt"),"w") as f:
 							f.write(str(",".join([str(i) for i in skins_list])))
-						with open(getdir("Assets\\stored_info.txt"),"w") as f:
+						with open(getdir("assets\\stored_info.txt"),"w") as f:
 							f.write(str(",".join([str(i) for i in [HIGHSCORE,COIN_VAULT]])))
 						
 				_translate = QtCore.QCoreApplication.translate
@@ -840,11 +840,11 @@ def game_GUI():
 			####### Skins buy controll
 			
 		def retranslateUi(self, store_window):
-			with open(getdir("Assets\\stored_info.txt"),"r") as f:
+			with open(getdir("assets\\stored_info.txt"),"r") as f:
 				stored_info = f.read().split(",")
 				COIN_VAULT = int(stored_info[1])
 
-			with open(getdir("Assets\\skin_info.txt"),"r") as f:
+			with open(getdir("assets\\skin_info.txt"),"r") as f:
 				skins_list = f.read().split(",")
 
 			bird_skins = skins_list[:skins_list.index("Xbird0")+1]

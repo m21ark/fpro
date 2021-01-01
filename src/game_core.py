@@ -9,13 +9,13 @@ def game():
 	def getdir(f_name):return os.path.join(os.path.dirname(__file__), f_name)
 
 	#icon jogo
-	pygame.display.set_icon(pygame.image.load(getdir('Assets\\icon.ico')))
+	pygame.display.set_icon(pygame.image.load(getdir('assets\\icon.ico')))
 	    
 	#Make window centered
 	os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 	#Recebe recorde guardado
-	with open(getdir("Assets\\stored_info.txt"),"r") as f:
+	with open(getdir("assets\\stored_info.txt"),"r") as f:
 		stored_info = f.read().split(",")
 		RECORD = int(stored_info[0])
 		COIN_VAULT = int(stored_info[1])
@@ -40,7 +40,7 @@ def game():
 	hyper_jump = 3
 
 	#Skin info load
-	with open(getdir("Assets\\skin_info.txt"),"r") as f:
+	with open(getdir("assets\\skin_info.txt"),"r") as f:
 		skins_list = f.read().split(",")
 
 	bird_skins = skins_list[:skins_list.index("Xbird0")+1]
@@ -56,20 +56,20 @@ def game():
 
 
 	#Load de skins
-	bird_skin=pygame.transform.scale(pygame.image.load(getdir(f'Assets\\{choice(bird_skins_have)}.png')),(65,60))	
-	pipe_b_skin = pygame.transform.scale(pygame.image.load(getdir(f'Assets\\{choice(pipe_skins_have)}.png')),(PIPE_WIDTH,PIPE_HEIGHT))
-	sky=pygame.image.load(getdir(f'Assets\\{choice(sky_skins_have)}.png'))
+	bird_skin=pygame.transform.scale(pygame.image.load(getdir(f'assets\\{choice(bird_skins_have)}.png')),(65,60))	
+	pipe_b_skin = pygame.transform.scale(pygame.image.load(getdir(f'assets\\{choice(pipe_skins_have)}.png')),(PIPE_WIDTH,PIPE_HEIGHT))
+	sky=pygame.image.load(getdir(f'assets\\{choice(sky_skins_have)}.png'))
 
 	#Load de outras informações
-	coin=pygame.transform.scale(pygame.image.load(getdir('Assets\\coin.png')),(40,45))
-	coin_icon=pygame.transform.scale(pygame.image.load(getdir('Assets\\coin.png')),(30,30))
+	coin=pygame.transform.scale(pygame.image.load(getdir('assets\\coin.png')),(40,45))
+	coin_icon=pygame.transform.scale(pygame.image.load(getdir('assets\\coin.png')),(30,30))
 	win=pygame.display.set_mode((WIN_WIDTH,WIN_HEIGHT))
 	pygame.display.set_caption('Flappy Bird')
 	sky=pygame.transform.scale(sky,(WIN_WIDTH,WIN_HEIGHT))
-	floor_skin = pygame.image.load(getdir('Assets\\floor.png'))
+	floor_skin = pygame.image.load(getdir('assets\\floor.png'))
 
-	POINT_SOUND = pygame.mixer.Sound(getdir("Assets\\point.wav"))
-	DIE_SOUND = pygame.mixer.Sound(getdir("Assets\\die.wav"))
+	POINT_SOUND = pygame.mixer.Sound(getdir("assets\\point.wav"))
+	DIE_SOUND = pygame.mixer.Sound(getdir("assets\\die.wav"))
 
 	#Variáveis principais
 	pipex = WIN_WIDTH+300
@@ -99,16 +99,16 @@ def game():
 
 
 		if score>RECORD:
-			with open(getdir("Assets\\stored_info.txt"),"w") as f:
+			with open(getdir("assets\\stored_info.txt"),"w") as f:
 				record = f.write(str(",".join([str(i) for i in [score,COIN_VAULT]])))
 		else:
-			with open(getdir("Assets\\stored_info.txt"),"w") as f:
+			with open(getdir("assets\\stored_info.txt"),"w") as f:
 				record = f.write(str(",".join([str(i) for i in [RECORD,COIN_VAULT]])))
 
 		while 1:
 			fps(20)
 			win.blit(sky,(0,0))
-			win.blit(pygame.image.load(getdir('Assets\\gameover.png')),(WIN_WIDTH/2-160,150))
+			win.blit(pygame.image.load(getdir('assets\\gameover.png')),(WIN_WIDTH/2-160,150))
 			pygame.font.init()
 			font=pygame.font.SysFont('Arial', 50)
 			text_surface1= font.render(f'Highscore:{RECORD}', False, (255,255,255))
