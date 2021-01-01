@@ -1,0 +1,1 @@
+bird1,bird2,Xbird3,bird4,bird5,Xbird0,pipe1,pipe2,pipe3,pipe4,pipe5,Xpipe0,sky1,sky2,sky3,sky4,Xsky0
