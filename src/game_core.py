@@ -1,7 +1,9 @@
 import pygame,os,sys
 from pygame.locals import *
+from PyQt5 import QtCore, QtGui, QtWidgets
 from random import randint as rand
 from random import choice
+
 
 def game():
 
@@ -9,25 +11,30 @@ def game():
 	def getdir(f_name):return os.path.join(os.path.dirname(__file__), f_name)
 
 	#icon jogo
-	pygame.display.set_icon(pygame.image.load(getdir('assets\\icon.ico')))
+	pygame.display.set_icon(pygame.image.load(getdir('assets/icon.ico')))
 	    
 	#Make window centered
 	os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 	#Recebe recorde guardado
-	with open(getdir("assets\\stored_info.txt"),"r") as f:
+	with open(getdir("assets/stored_info.txt"),"r") as f:
 		stored_info = f.read().split(",")
 		RECORD = int(stored_info[0])
 		COIN_VAULT = int(stored_info[1])
 
+	#get screen size
+	app = QtWidgets.QApplication(sys.argv)
+	screen = app.primaryScreen()
+	size = screen.size()
+	SCREEN_HEIGHT = size.height()
+
 	#Constantes
-	SCREEN_HEIGHT =  pygame.display.Info().current_h
 	WIN_WIDTH=int(SCREEN_HEIGHT*0.6)
 	WIN_HEIGHT=int(SCREEN_HEIGHT*0.8)
 	PIPE_WIDTH=120
 	PIPE_HEIGHT=500
 	GAP=660
-	MOVE= 15
+	MOVE= 10
 	RUN = True
 	ATSTART = True
 
@@ -40,7 +47,7 @@ def game():
 	hyper_jump = 3
 
 	#Skin info load
-	with open(getdir("assets\\skin_info.txt"),"r") as f:
+	with open(getdir("assets/skin_info.txt"),"r") as f:
 		skins_list = f.read().split(",")
 
 	bird_skins = skins_list[:skins_list.index("Xbird0")+1]
@@ -56,20 +63,20 @@ def game():
 
 
 	#Load de skins
-	bird_skin=pygame.transform.scale(pygame.image.load(getdir(f'assets\\{choice(bird_skins_have)}.png')),(65,60))	
-	pipe_b_skin = pygame.transform.scale(pygame.image.load(getdir(f'assets\\{choice(pipe_skins_have)}.png')),(PIPE_WIDTH,PIPE_HEIGHT))
-	sky=pygame.image.load(getdir(f'assets\\{choice(sky_skins_have)}.png'))
+	bird_skin=pygame.transform.scale(pygame.image.load(getdir(f'assets/{choice(bird_skins_have)}.png')),(65,60))	
+	pipe_b_skin = pygame.transform.scale(pygame.image.load(getdir(f'assets/{choice(pipe_skins_have)}.png')),(PIPE_WIDTH,PIPE_HEIGHT))
+	sky=pygame.image.load(getdir(f'assets/{choice(sky_skins_have)}.png'))
 
 	#Load de outras informações
-	coin=pygame.transform.scale(pygame.image.load(getdir('assets\\coin.png')),(40,45))
-	coin_icon=pygame.transform.scale(pygame.image.load(getdir('assets\\coin.png')),(30,30))
+	coin=pygame.transform.scale(pygame.image.load(getdir('assets/coin.png')),(40,45))
+	coin_icon=pygame.transform.scale(pygame.image.load(getdir('assets/coin.png')),(30,30))
 	win=pygame.display.set_mode((WIN_WIDTH,WIN_HEIGHT))
 	pygame.display.set_caption('Flappy Bird')
 	sky=pygame.transform.scale(sky,(WIN_WIDTH,WIN_HEIGHT))
-	floor_skin = pygame.image.load(getdir('assets\\floor.png'))
+	floor_skin = pygame.image.load(getdir('assets/floor.png'))
 
-	POINT_SOUND = pygame.mixer.Sound(getdir("assets\\point.wav"))
-	DIE_SOUND = pygame.mixer.Sound(getdir("assets\\die.wav"))
+	POINT_SOUND = pygame.mixer.Sound(getdir("assets/point.wav"))
+	DIE_SOUND = pygame.mixer.Sound(getdir("assets/die.wav"))
 
 	#Variáveis principais
 	pipex = WIN_WIDTH+300
@@ -99,16 +106,16 @@ def game():
 
 
 		if score>RECORD:
-			with open(getdir("assets\\stored_info.txt"),"w") as f:
+			with open(getdir("assets/stored_info.txt"),"w") as f:
 				record = f.write(str(",".join([str(i) for i in [score,COIN_VAULT]])))
 		else:
-			with open(getdir("assets\\stored_info.txt"),"w") as f:
+			with open(getdir("assets/stored_info.txt"),"w") as f:
 				record = f.write(str(",".join([str(i) for i in [RECORD,COIN_VAULT]])))
 
 		while 1:
 			fps(20)
 			win.blit(sky,(0,0))
-			win.blit(pygame.image.load(getdir('assets\\gameover.png')),(WIN_WIDTH/2-160,150))
+			win.blit(pygame.image.load(getdir('assets/gameover.png')),(WIN_WIDTH/2-160,150))
 			pygame.font.init()
 			font=pygame.font.SysFont('Arial', 50)
 			text_surface1= font.render(f'Highscore:{RECORD}', False, (255,255,255))
@@ -147,7 +154,7 @@ def game():
 	jumped =False
 	hyper_jumped = False
 	glided = 0
-	grav = 15
+	grav = 9
 	grav_count = 0
 
 	
@@ -174,20 +181,20 @@ def game():
 			continue
 
 
-		fps(30)
+		fps(60)
 
 		#HARD INCRESED BY MOVE AND GRAV
 		MOVE_count +=1
-		if MOVE<40:
-			if MOVE_count ==170:
-				MOVE +=0.5
+		if MOVE<30:
+			if MOVE_count ==200:
+				MOVE +=0.6
 				MOVE_count = 0
 
 		#Gravidade
 		grav_count +=1
 		if grav<25:
-			if grav_count ==170:
-				grav +=0.5
+			if grav_count ==200:
+				grav +=0.6
 				grav_count = 0
 		birdy+=grav
 
@@ -209,22 +216,22 @@ def game():
 						hyper_jump-=1
 		if jumped :
 			smooth_jump +=1
-			birdy -=grav*2.5
-			if smooth_jump ==2:
+			birdy -=grav*3
+			if smooth_jump ==3:
 				jumped =False
 				smooth_jump = 0	
 
 		if hyper_jumped :
 			smooth_hyper +=1
-			birdy -=grav*5
-			if smooth_hyper ==5:
+			birdy -=grav*6
+			if smooth_hyper ==7:
 				smooth_hyper =0
 				hyper_jumped =False		
 
 		if glided :
 			smooth_glide +=1
-			birdy -=12
-			if smooth_glide ==15:
+			birdy -=grav*0.8
+			if smooth_glide ==20:
 				smooth_glide =0
 				glided =False
 
