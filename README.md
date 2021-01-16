@@ -14,6 +14,7 @@ Nesta versão do jogo, existe 3 teclas:
 - SPACE para saltar
 - UP_ARROW para super salto
 - RIGHT_ARROW para planar
+
 Nota: As duas últimas teclas só podem ser ativadas cada uma 3x ao longo de um jogo.
 Nesta modificação do jogo foram adicionadas skins colecionáveis que podem ser compradas na loja utilizando as moedas coletadas no jogo, sendo que a cada novo jogo, serão escolhidas aleatoriamente as skins a utilizar (caso tenham sido compradas).
 
