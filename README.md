@@ -21,8 +21,7 @@ Nota: As duas últimas teclas só podem ser ativadas cada uma 3x ao longo de um 
 Nesta modificação do jogo foram adicionadas skins colecionáveis que podem ser compradas na loja utilizando as moedas coletadas no jogo, sendo que a cada novo jogo, serão escolhidas aleatoriamente as skins a utilizar (caso tenham sido compradas).
 
 ### UI
-<img src="https://github.com/Mark21-03/Flappy-Bird/blob/main/src/assets/ui.jpg" width="200" />
-![UI](src/assets/ui1.jpg)
+<img src="https://github.com/Mark21-03/Flappy-Bird/blob/main/src/assets/ui.jpg" width="300" /><img src="https://github.com/Mark21-03/Flappy-Bird/blob/main/src/assets/ui1.jpg" width="300" />
 ![UI](src/assets/ui2.jpg)
 
 ### Pacotes
