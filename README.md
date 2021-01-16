@@ -22,7 +22,7 @@ Nesta modificação do jogo foram adicionadas skins colecionáveis que podem ser
 
 ### UI
 
-![UI](src/assets/ui.jpg | width=100))
+![UI](src/assets/ui.jpg){:height="700px" width="400px"}
 ![UI](src/assets/ui1.jpg =250x250)
 ![UI](src/assets/ui2.jpg =250x250)
 
