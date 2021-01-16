@@ -31,13 +31,15 @@ Nesta modificação do jogo foram adicionadas skins colecionáveis que podem ser
 
 ### Tarefas
 
-1. [x] desenhar e controlar o jogador: salto e gravidade
-2. [x] gerar nível aleatório com obstáculos
-3. [x] colisão de obstáculos
-4. [x] Adição de novas Skins 
-5. [x] Adição de ficheiro que guarda informações
-6. [x] Adicionar moedas coletaveis
-7. [x] Adicionar efeitos sonoros e ficheiros extra
-8. [x] Adicionar janela inicial e janela "game over"
-9. [x] Adicionar loja de compra de skins
-10. [x] Conectar GUI com backend
+1. [x] Desenhar elementos e controlar Bird
+2. [x] Criação de pipes aleatórios e movimento
+3. [x] Função Colisão
+4. [x] Adição de Skins 
+5. [x] Adição de ficheiro externo para informações
+6. [x] Adição de moedas coletaveis
+7. [x] Adição de efeitos sonoros e animações
+8. [x] Adição de janela inicial e janela "game over"
+9. [x] Adição de loja e sistema económico
+10. [x] Conectar Frontend e Backend
+11. [x] Correção de minor bugs
+12. [x] Versão Final
