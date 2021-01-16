@@ -23,6 +23,8 @@ Nesta modificação do jogo foram adicionadas skins colecionáveis que podem ser
 ### UI
 
 ![UI](src/assets/ui.jpg)
+![UI](src/assets/ui1.jpg)
+![UI](src/assets/ui2.jpg)
 
 ### Pacotes
 
