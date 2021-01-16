@@ -10,7 +10,7 @@ Clone do famoso jogo [Flappy Bird](https://flappybird.io/), em PyGame.
 ### Descrição
 
 O objetivo é desviar dos obstáculos e aguentar o máximo de tempo possível.
-Nesta versão do jogo, existe 3 teclas:
+Nesta versão do jogo, existem 3 teclas:
 - SPACE para saltar
 - UP_ARROW para super salto
 - RIGHT_ARROW para planar
