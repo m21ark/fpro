@@ -7,7 +7,7 @@ from random import choice
 
 def game():
 
-	def fps(x):pygame.time.Clock().tick(x)
+	def fps(x): pygame.time.Clock().tick(x)
 	def getdir(f_name):return os.path.join(os.path.dirname(__file__), f_name)
 
 	#icon jogo
@@ -37,6 +37,12 @@ def game():
 	MOVE= 10
 	RUN = True
 	ATSTART = True
+
+	GRAVITY_ACCEL = 4
+	JUMP_ACCEL = -30
+	HYPERJUMP_ACCEL = 2*JUMP_ACCEL
+	DOWN_MAX_VEL = 12
+	UP_MAX_VEL = 24
 
 	#controla habilidades
 	smooth_jump = 0
@@ -87,6 +93,7 @@ def game():
 	pipe_b_collision=pipey_b
 	pipe_t_skin = pygame.transform.rotate(pipe_b_skin,180)
 	score = 0
+	bird_vy = 0
 	birdx,birdy=(100,200)
 	floor_pos=(0,WIN_WIDTH)
 	floor_x1,floor_x2,floor_width = 20,-WIN_WIDTH+27,floor_skin.get_width()
@@ -149,6 +156,7 @@ def game():
 						game()
 
 			pygame.display.update()
+	# ------------ end death() ----------------
 
 	# Main Game Loop
 	jumped =False
@@ -181,7 +189,7 @@ def game():
 			continue
 
 
-		fps(60)
+		fps(40)
 
 		#HARD INCRESED BY MOVE AND GRAV
 		MOVE_count +=1
@@ -191,14 +199,17 @@ def game():
 				MOVE_count = 0
 
 		#Gravidade
+		'''
 		grav_count +=1
 		if grav<25:
 			if grav_count ==200:
 				grav +=0.6
 				grav_count = 0
 		birdy+=grav
+		'''
 
 		#Catch Key Press
+		jumped = hyper_jump = False
 		for event in pygame.event.get():
 			if event.type==QUIT:
 				pygame.quit()
@@ -211,29 +222,48 @@ def game():
 						glided = True
 						glide_count-=1
 				if event.key== K_UP:
+					hyper_jump = True
+					'''
 					if hyper_jump>0:
 						hyper_jumped = True
 						hyper_jump-=1
-		if jumped :
+					'''
+
+		accel_y = GRAVITY_ACCEL
+		if jumped:
+			accel_y = JUMP_ACCEL
+			'''
 			smooth_jump +=1
-			birdy -=grav*3
+			#birdy -=grav*3
 			if smooth_jump ==3:
 				jumped =False
 				smooth_jump = 0	
-
+			'''
+		if hyper_jump:
+			accel_y = HYPERJUMP_ACCEL
+		'''
 		if hyper_jumped :
 			smooth_hyper +=1
-			birdy -=grav*6
+			#birdy -=grav*6
 			if smooth_hyper ==7:
 				smooth_hyper =0
 				hyper_jumped =False		
+		'''
 
 		if glided :
 			smooth_glide +=1
-			birdy -=grav*0.8
+			#birdy -=grav*0.8
 			if smooth_glide ==20:
 				smooth_glide =0
 				glided =False
+
+		# update physics
+		bird_vy += accel_y
+		if bird_vy > DOWN_MAX_VEL:
+			bird_vy = DOWN_MAX_VEL
+		if bird_vy < -UP_MAX_VEL:
+			bird_vy = -UP_MAX_VEL
+		birdy += bird_vy
 
         #pipe move + score and col
 		pipex-=MOVE
@@ -330,6 +360,7 @@ def game():
 			RECORD = score
 				
 		pygame.display.update()
+		#pygame.time.wait(50)
 
 
 	#Guarda maior dos scores e moedas
