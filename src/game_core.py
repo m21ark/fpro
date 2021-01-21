@@ -4,6 +4,22 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from random import randint as rand
 from random import choice
 
+def  collide(t, win,bird_skin,pipe_tup):
+			birdx,birdy = t
+			bird_mask = pygame.mask.from_surface(bird_skin)
+			pipe_t_skin,pipe_b_skin,pipex,pipey_b,pipey_t= pipe_tup 
+			
+			top_mask = pygame.mask.from_surface(pipe_t_skin)
+			bottom_mask = pygame.mask.from_surface(pipe_b_skin)
+
+			top_offset = (int(pipex) - int(birdx), int(pipey_t) - round(birdy))
+			bottom_offset = (int(pipex) - int(birdx), int(pipey_b) - round(birdy))
+
+			b_col = bird_mask.overlap(bottom_mask, (bottom_offset))
+			t_col = bird_mask.overlap(top_mask,(top_offset))
+
+			if b_col or t_col:return True
+			return False
 
 def game():
 
@@ -38,19 +54,14 @@ def game():
 	RUN = True
 	ATSTART = True
 
-	GRAVITY_ACCEL = 4
-	JUMP_ACCEL = -30
-	HYPERJUMP_ACCEL = 2*JUMP_ACCEL
-	DOWN_MAX_VEL = 12
-	UP_MAX_VEL = 24
+	GRAVITY_ACCEL = 4.2
+	JUMP_ACCEL = -25
+	DOWN_MAX_VEL = 15
+	UP_MAX_VEL = 20
 
 	#controla habilidades
-	smooth_jump = 0
-	smooth_glide = 0
-	smooth_hyper = 0
-	glide_count = 3
+	glide_count = 5
 	MOVE_count = 0
-	hyper_jump = 3
 
 	#Skin info load
 	with open(getdir("assets/skin_info.txt"),"r") as f:
@@ -128,22 +139,24 @@ def game():
 			text_surface1= font.render(f'Highscore:{RECORD}', False, (255,255,255))
 			text_surface2= font.render(f'Score:{score}', False, (255,255,255))
 			text_surface3= font.render(f'Coins:{COIN_VAULT}', False, (255,255,255))
+			font=pygame.font.SysFont('Arial', 45)
 			text_surface4= font.render(f'Press "ENTER" to restart!', False, (255,255,255))
 			win.blit(text_surface1,(WIN_WIDTH/2-100,300))
 			win.blit(text_surface2,(WIN_WIDTH/2-100,350))
 			win.blit(text_surface3,(WIN_WIDTH/2-100,400))
 			font=pygame.font.SysFont('Arial', 25)
-			win.blit(text_surface4,(WIN_WIDTH/2-235,500))
+			win.blit(text_surface4,(WIN_WIDTH/2-225,500))
 			font=pygame.font.SysFont('Arial', 50)
 			text_surface1= font.render(f'Highscore:{RECORD}', False, (0,0,0))
 			text_surface2= font.render(f'Score:{score}', False, (0,0,0))
 			text_surface3= font.render(f'Coins:{COIN_VAULT}', False, (0,0,0))
+			font=pygame.font.SysFont('Arial', 45)
 			text_surface4= font.render(f'Press "ENTER" to restart!', False, (0,0,0))
 			win.blit(text_surface1,(WIN_WIDTH/2-105+2,300+2))
 			win.blit(text_surface2,(WIN_WIDTH/2-105+2,350+2))
 			win.blit(text_surface3,(WIN_WIDTH/2-105+2,400+2))
 			font=pygame.font.SysFont('Arial', 25)
-			win.blit(text_surface4,(WIN_WIDTH/2-235+2,500+2))
+			win.blit(text_surface4,(WIN_WIDTH/2-225+2,500+2))
 
 
 			#Catch Key Press
@@ -160,11 +173,8 @@ def game():
 
 	# Main Game Loop
 	jumped =False
-	hyper_jumped = False
 	glided = 0
-	grav = 9
-	grav_count = 0
-
+	smooth_glide =0
 	
 	while RUN:
 		if ATSTART:
@@ -189,27 +199,17 @@ def game():
 			continue
 
 
-		fps(40)
+		fps(45)
 
-		#HARD INCRESED BY MOVE AND GRAV
+		#HARD INCRESED BY MOVE
 		MOVE_count +=1
 		if MOVE<30:
 			if MOVE_count ==200:
 				MOVE +=0.6
 				MOVE_count = 0
 
-		#Gravidade
-		'''
-		grav_count +=1
-		if grav<25:
-			if grav_count ==200:
-				grav +=0.6
-				grav_count = 0
-		birdy+=grav
-		'''
-
 		#Catch Key Press
-		jumped = hyper_jump = False
+		jumped = False
 		for event in pygame.event.get():
 			if event.type==QUIT:
 				pygame.quit()
@@ -222,48 +222,29 @@ def game():
 						glided = True
 						glide_count-=1
 				if event.key== K_UP:
-					hyper_jump = True
-					'''
-					if hyper_jump>0:
-						hyper_jumped = True
-						hyper_jump-=1
-					'''
+					jumped = True
 
 		accel_y = GRAVITY_ACCEL
 		if jumped:
-			accel_y = JUMP_ACCEL
-			'''
-			smooth_jump +=1
-			#birdy -=grav*3
-			if smooth_jump ==3:
-				jumped =False
-				smooth_jump = 0	
-			'''
-		if hyper_jump:
-			accel_y = HYPERJUMP_ACCEL
-		'''
-		if hyper_jumped :
-			smooth_hyper +=1
-			#birdy -=grav*6
-			if smooth_hyper ==7:
-				smooth_hyper =0
-				hyper_jumped =False		
-		'''
+			if not glided:
+				accel_y = JUMP_ACCEL
 
 		if glided :
+			accel_y = 0
 			smooth_glide +=1
-			#birdy -=grav*0.8
-			if smooth_glide ==20:
+			birdy += 3
+			if smooth_glide == 20:
 				smooth_glide =0
 				glided =False
 
-		# update physics
-		bird_vy += accel_y
-		if bird_vy > DOWN_MAX_VEL:
-			bird_vy = DOWN_MAX_VEL
-		if bird_vy < -UP_MAX_VEL:
-			bird_vy = -UP_MAX_VEL
-		birdy += bird_vy
+		else:
+			# update physics
+			bird_vy += accel_y
+			if bird_vy > DOWN_MAX_VEL:
+				bird_vy = DOWN_MAX_VEL
+			if bird_vy < -UP_MAX_VEL:
+				bird_vy = -UP_MAX_VEL
+			birdy += bird_vy
 
         #pipe move + score and col
 		pipex-=MOVE
@@ -298,23 +279,6 @@ def game():
 			break
 
 		#deteta colisao
-		def  collide(t, win,bird_skin,pipe_tup):
-			birdx,birdy = t
-			bird_mask = pygame.mask.from_surface(bird_skin)
-			pipe_t_skin,pipe_b_skin,pipex,pipey_b,pipey_t= pipe_tup 
-			
-			top_mask = pygame.mask.from_surface(pipe_t_skin)
-			bottom_mask = pygame.mask.from_surface(pipe_b_skin)
-
-			top_offset = (int(pipex) - int(birdx), int(pipey_t) - round(birdy))
-			bottom_offset = (int(pipex) - int(birdx), int(pipey_b) - round(birdy))
-
-			b_col = bird_mask.overlap(bottom_mask, (bottom_offset))
-			t_col = bird_mask.overlap(top_mask,(top_offset))
-
-			if b_col or t_col:return True
-			return False
-
 		if collide((birdx,birdy), win,bird_skin,(pipe_t_skin,pipe_b_skin,pipex,pipey_b,pipey_t)):
 			DIE_SOUND.play()
 			break
@@ -336,7 +300,7 @@ def game():
 		win.blit(bird_skin, (birdx,birdy))
 		win.blit(floor_skin, (floor_x1,580))
 		win.blit(floor_skin, (floor_x2,580))
-		win.blit(coin_icon,(WIN_WIDTH-40,13))
+		win.blit(coin_icon,(WIN_WIDTH-40,10))
 
 		#Escreve score
 		pygame.font.init()
@@ -360,11 +324,13 @@ def game():
 			RECORD = score
 				
 		pygame.display.update()
-		#pygame.time.wait(50)
+		#Limita o framerate
+		pygame.time.wait(10)
 
 
 	#Guarda maior dos scores e moedas
 	death(birdy)
 
 
-# game()
+if __name__ == '__main__':
+	game()
