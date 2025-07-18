@@ -4,6 +4,10 @@ This project was developed for FPRO/MIEIC, 2020/21.
 
 This is a `Python` clone of the classic [Flappy Bird](https://flappybird.io/) game, built using `Pygame` and `PyQt5`.
 
+See a demo video of this project:
+
+[![Youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=A8UkwcWTFh8)
+
 ## 🕹️ Gameplay
 
 The goal is to avoid obstacles and survive as long as possible.
