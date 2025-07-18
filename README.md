@@ -1,44 +1,33 @@
-# Projeto Flappy Bird
-## FPRO/MIEIC, 2020/21
-## Marco André Rocha Pinto (up202004891)
-## 1MIEIC07
+# Flappy Bird Clone
 
-### Objetivo
+This project was developed for FPRO/MIEIC, 2020/21.
 
-Clone do famoso jogo [Flappy Bird](https://flappybird.io/), em PyGame.
+This is a `Python` clone of the classic [Flappy Bird](https://flappybird.io/) game, built using `Pygame` and `PyQt5`.
 
-### Descrição
+## 🕹️ Gameplay
 
-O objetivo é desviar dos obstáculos e aguentar o máximo de tempo possível.
-Nesta versão do jogo, existem 3 teclas:
-- SPACE/UP_ARROW para saltar
-- RIGHT_ARROW para planar
+The goal is to avoid obstacles and survive as long as possible.
 
-Nota: A habilidade de planar só pode ser ativada 5x ao longo de um jogo.
+Controls:
 
-#### Customizações
-Nesta modificação do jogo foram adicionadas skins colecionáveis que podem ser compradas na loja utilizando as moedas coletadas no jogo, sendo que a cada novo jogo, serão escolhidas aleatoriamente as skins a utilizar (caso tenham sido compradas).
+- SPACE or UP ARROW → Jump
+- RIGHT ARROW → Glide
 
-### UI
-<img src="https://github.com/Mark21-03/Flappy-Bird/blob/main/src/assets/ui.jpg" width="300" />      <img src="https://github.com/Mark21-03/Flappy-Bird/blob/main/src/assets/ui1.jpg" width="300" />       <img src="https://github.com/Mark21-03/Flappy-Bird/blob/main/src/assets/ui2.jpg" width="300" />
+⚠️ Note: You can only glide up to 5 times per game.
 
-### Pacotes
+## 🎨 Customizations
 
-- Pygame
-- PyQT5
+This version introduces a collectible skin system:
 
+- Skins can be purchased in the in-game store using coins collected during gameplay.
+- At the start of each new game, randomly chosen owned skins are applied.
 
-### Tarefas
+You can access a store to buy new skins with coins earned through gameplay. The shop adds a layer of customization and progression to the game, making each playthrough unique.
 
-1. [x] Desenhar elementos e controlar Bird
-2. [x] Criação de pipes aleatórios e movimento
-3. [x] Função Colisão
-4. [x] Adição de Skins 
-5. [x] Adição de ficheiro externo para informações
-6. [x] Adição de moedas coletaveis
-7. [x] Adição de efeitos sonoros e animações
-8. [x] Adição de janela inicial e janela "game over"
-9. [x] Adição de loja e sistema económico
-10. [x] Conectar Frontend e Backend
-11. [x] Correção de minor bugs
-12. [x] Versão Final
+## User Interface
+
+<p "center">
+  <img src="https://github.com/Mark21-03/Flappy-Bird/blob/main/src/assets/ui.jpg" width="250" />
+  <img src="https://github.com/Mark21-03/Flappy-Bird/blob/main/src/assets/ui1.jpg" width="250" />
+  <img src="https://github.com/Mark21-03/Flappy-Bird/blob/main/src/assets/ui2.jpg" width="250" />
+</p>
